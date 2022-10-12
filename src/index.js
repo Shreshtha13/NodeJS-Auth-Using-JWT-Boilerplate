@@ -1,19 +1,11 @@
-const express = require('express')
-const app = express()
-const bodyParser = require("body-parser");
-const port = 3000
-app.use(express.urlencoded());
+const http = require("http");
+const app = require("./app");
+const server = http.createServer(app);
 
-// Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+const { API_PORT } = process.env;
+const port = process.env.PORT || API_PORT;
 
-
-app.use(bodyParser.urlencoded({ extended: false }))
-
-app.use(bodyParser.json())
-// your code goes here
-
-
-app.listen(port, () => console.log(`App listening on port ${port}!`))
-
-module.exports = app;
+// server listening 
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
